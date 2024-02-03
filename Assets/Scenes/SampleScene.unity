@@ -517,6 +517,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d3bd2f025dbeee04cb1b55add5e78c2d, type: 3}
+    - target: {fileID: 1520895168987615296, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3920632785233840325, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1360,6 +1364,74 @@ PrefabInstance:
     - target: {fileID: 614151770559225149, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_UseWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_ApplyActiveColorSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_Positions.Array.data[0].z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_Parameters.colorGradient.atime0
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_Parameters.colorGradient.ctime0
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 0.5018867
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 0.5018867
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 0.5018867
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.b
+      value: 0.5018867
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.g
+      value: 0.5018867
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.r
+      value: 0.5018867
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_Parameters.generateLightingData
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083083443299813103, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
+      propertyPath: m_Parameters.colorGradient.m_ColorSpace
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4086486280475352077, guid: a88dee9a8f725d04d8c5f9cd558101a0, type: 3}
       propertyPath: m_LocalPosition.x
