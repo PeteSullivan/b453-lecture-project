@@ -7,7 +7,7 @@ public class Base : MonoBehaviour
     [SerializeField] private GameObject billion;
     [SerializeField] private bool spawning = true;
     [SerializeField] private float spawnRate = 1;
-    [SerializeField] private float spawnRange = .5f;
+    [SerializeField] private float spawnRange = .1f;
     [SerializeField] private float timer = 0;
 
     // Start is called before the first frame update

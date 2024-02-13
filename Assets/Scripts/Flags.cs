@@ -33,7 +33,7 @@ public class Flags : MonoBehaviour
             }
             else //else, identify closest flag and start holding it
             {
-                
+
                 float flag1Distance = Vector3.Distance(flag1.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 float flag2Distance = Vector3.Distance(flag2.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 flagToBeMoved = flag1Distance < flag2Distance ? flag1 : flag2;
@@ -57,9 +57,9 @@ public class Flags : MonoBehaviour
             lr.SetPosition(0, startingPosition - new Vector3(.35f, .35f, 0));
             lr.SetPosition(1, flagToBeMoved.transform.position - new Vector3(.35f, .35f, 0));
         }
-        
+
     }
-    
+
     private void moveFlag(GameObject flag)
     {
         //move flag to mouse's relative position

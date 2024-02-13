@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 8414584695011997380}
   - component: {fileID: 759677870051142111}
   - component: {fileID: 3780926242630879999}
+  - component: {fileID: -25092723988538947}
   m_Layer: 0
-  m_Name: BillionBlue
+  m_Name: BillionRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 27fad264463ed6d4aae71bcc02a2d413, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8fd550a13829aa74285a34857491359e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -148,3 +149,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-25092723988538947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5028416128134207622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9e63e04aa7730548bd8104b5fd7aa0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flag1: {fileID: 0}
+  flag2: {fileID: 0}
+  speed: 0.2
