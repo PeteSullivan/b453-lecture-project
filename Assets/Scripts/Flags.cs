@@ -47,15 +47,19 @@ public class Flags : MonoBehaviour
             holding = false;
             lr.SetPosition(0, new Vector3(-10, -10, -10)); //moves line offscreen
             lr.SetPosition(1, new Vector3(-10, -10, -10));
+            if (clicks > 2)
+            {
+                moveFlag(flagToBeMoved);
+            }
 
 
         }
 
         if (holding) //if holding down, move current flag
         {
-            moveFlag(flagToBeMoved);
-            lr.SetPosition(0, startingPosition - new Vector3(.35f, .35f, 0));
-            lr.SetPosition(1, flagToBeMoved.transform.position - new Vector3(.35f, .35f, 0));
+            //moveFlag(flagToBeMoved);
+            lr.SetPosition(0, startingPosition);
+            lr.SetPosition(1, Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
 
     }
@@ -64,7 +68,7 @@ public class Flags : MonoBehaviour
     {
         //move flag to mouse's relative position
         flag.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        flag.transform.position = new Vector3(flag.transform.position.x, flag.transform.position.y, 0) + new Vector3(.35f, .35f, 0); //add to place end of flag accurately
+        flag.transform.position = new Vector3(flag.transform.position.x, flag.transform.position.y, 0); //add to place end of flag accurately
     }
 
 

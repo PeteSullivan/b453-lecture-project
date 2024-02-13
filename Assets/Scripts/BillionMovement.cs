@@ -9,10 +9,10 @@ public class BillionMovement : MonoBehaviour
     [SerializeField] private GameObject flag1;
     [SerializeField] private GameObject flag2;
     [SerializeField] private float acceleration;
-    
-    private Vector3 flag1Position;
-    private Vector3 flag2Position;
-    private GameObject closerFlag;
+    [SerializeField] private float stopMovingRange;
+
+    private Vector3 goalPosition;
+    private GameObject currentFlag;
     private float totalDistance;
     private Vector3 direction = new Vector3(0,0,0);
     public float velocity = 0;
@@ -23,41 +23,75 @@ public class BillionMovement : MonoBehaviour
     void Start()
     {
 
-        rb = this.gameObject.GetComponent<Rigidbody2D>();
-        flag1Position = flag1.transform.position;
-        flag2Position = flag2.transform.position;
-        float flag1Distance = Vector3.Distance(flag1Position, transform.position);
-        float flag2Distance = Vector3.Distance(flag2Position, transform.position);
-        closerFlag = (flag1Distance < flag2Distance) ? flag1 : flag2;
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        float flag1Distance = Vector3.Distance(flag1.transform.position, transform.position);
+        float flag2Distance = Vector3.Distance(flag2.transform.position, transform.position);
+        currentFlag = (flag1Distance < flag2Distance) ? flag1 : flag2;
+        goalPosition = currentFlag.transform.position;
         totalDistance = (flag1Distance < flag2Distance) ? flag1Distance : flag2Distance;
+        velocity = 0;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        //find closer flag if a flag was moved
-        if (flag1.transform.position != flag1Position || flag2.transform.position != flag2Position)
+        updateCloseFlag();
+
+        if (currentFlag.transform.position.z == 0) //checks to see if current flag has been placed
         {
-            flag1Position = flag1.transform.position;
-            flag2Position = flag2.transform.position;
-            float flag1Distance = Vector3.Distance(flag1Position, transform.position);
-            float flag2Distance = Vector3.Distance(flag2Position, transform.position);
-            closerFlag = (flag1Distance < flag2Distance) ? flag1 : flag2;
-            totalDistance = (flag1Distance < flag2Distance) ? flag1Distance : flag2Distance;
+            MoveToFlag();
         }
 
-        MoveToFlag();
-        
     }
+    private void updateCloseFlag() 
+    {
+        
+        float flag1Distance = Vector3.Distance(flag1.transform.position, transform.position);
+        float flag2Distance = Vector3.Distance(flag2.transform.position, transform.position);
+        float currentDistance = Vector3.Distance(currentFlag.transform.position, transform.position);
+        if (currentFlag.transform.position != goalPosition)
+        {
+            currentFlag = (flag1Distance < flag2Distance) ? flag1 : flag2;
+            goalPosition = currentFlag.transform.position;
+            totalDistance = (flag1Distance < flag2Distance) ? flag1Distance : flag2Distance;
+            Vector3 newDirection = (currentFlag.transform.position - this.transform.position).normalized;
+            float angle = Vector3.Angle(direction, newDirection);
+            velocity = (180 - angle) * velocity / 180;
+        }
+        else if (flag1Distance < currentDistance)
+        {
+            currentFlag = flag1;
+            goalPosition = currentFlag.transform.position;
+            totalDistance = flag1Distance;
+            Vector3 newDirection = (currentFlag.transform.position - this.transform.position).normalized;
+            float angle = Vector3.Angle(direction, newDirection);
+            velocity = (180 - angle) * velocity / 180;
+
+        }
+        else if (flag2Distance < currentDistance)
+        {
+            currentFlag = flag2;
+            goalPosition = currentFlag.transform.position;
+            totalDistance = flag1Distance;
+            Vector3 newDirection = (currentFlag.transform.position - this.transform.position).normalized;
+            float angle = Vector3.Angle(direction, newDirection);
+            velocity = (180 - angle) * velocity / 180;
+
+        }
+
+    }
+
+
     private void MoveToFlag()   
     {
-        float remainingDistance = Vector3.Distance(closerFlag.transform.position, transform.position);
-        direction = (closerFlag.transform.position - this.transform.position).normalized;
+        float remainingDistance = Vector3.Distance(currentFlag.transform.position, transform.position);
+        direction = (currentFlag.transform.position - this.transform.position).normalized;
 
         if (remainingDistance < (totalDistance) / 2 )
         {
-            velocity -= velocity * 0.9f * Time.deltaTime;
+            velocity = remainingDistance;
+            if (remainingDistance < stopMovingRange) { velocity = 0; }
             transform.position += direction * velocity * Time.deltaTime;
                 
         }
