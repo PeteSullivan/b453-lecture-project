@@ -687,6 +687,10 @@ PrefabInstance:
       propertyPath: billion
       value: 
       objectReference: {fileID: 1778591420}
+    - target: {fileID: 5099863102183588429, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
+      propertyPath: spawnRate
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5966587810526146075, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6
@@ -1129,6 +1133,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BillionRed
       objectReference: {fileID: 0}
+    - target: {fileID: 8554952583156118054, guid: 0033b38c011723145a665ca86bc49320, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2787fc243337bca438f96ce36d4050bc, type: 3}
     m_RemovedComponents:
     - {fileID: 0}
     m_RemovedGameObjects: []
@@ -1322,6 +1330,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -25092723988538947, guid: 0033b38c011723145a665ca86bc49320, type: 3}
+      propertyPath: color
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -25092723988538947, guid: 0033b38c011723145a665ca86bc49320, type: 3}
       propertyPath: flag1
       value: 
       objectReference: {fileID: 1135391087}
@@ -1384,7 +1396,11 @@ PrefabInstance:
     - target: {fileID: 8414584695011997380, guid: 0033b38c011723145a665ca86bc49320, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 27fad264463ed6d4aae71bcc02a2d413, type: 3}
+      objectReference: {fileID: 21300000, guid: 2787fc243337bca438f96ce36d4050bc, type: 3}
+    - target: {fileID: 8554952583156118054, guid: 0033b38c011723145a665ca86bc49320, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2787fc243337bca438f96ce36d4050bc, type: 3}
     m_RemovedComponents:
     - {fileID: 0}
     m_RemovedGameObjects: []
@@ -1581,6 +1597,10 @@ PrefabInstance:
       propertyPath: billion
       value: 
       objectReference: {fileID: 2005148407}
+    - target: {fileID: 5099863102183588429, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
+      propertyPath: spawnRate
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5966587810526146075, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6

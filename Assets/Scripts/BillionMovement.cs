@@ -5,6 +5,10 @@ using UnityEngine.AI;
 
 public class BillionMovement : MonoBehaviour
 {
+    private Rigidbody2D rb;
+    [SerializeField] public int color;
+    [SerializeField] private Sprite[] spriteColors;
+
     //finding how to move
     [SerializeField] private GameObject flag1;
     [SerializeField] private GameObject flag2;
@@ -17,7 +21,11 @@ public class BillionMovement : MonoBehaviour
     private Vector3 direction = new Vector3(0,0,0);
     public float velocity = 0;
 
-    private Rigidbody2D rb;
+
+    //health
+    private Transform HealthBar;
+    private int health;
+    private int maxHealth = 100;
 
 
     void Start()
@@ -30,6 +38,15 @@ public class BillionMovement : MonoBehaviour
         goalPosition = currentFlag.transform.position;
         totalDistance = (flag1Distance < flag2Distance) ? flag1Distance : flag2Distance;
         velocity = 0;
+
+
+        health = maxHealth;
+        HealthBar = transform.GetChild(0);
+        HealthBar.GetComponent<SpriteRenderer>().sprite = spriteColors[color];
+                    
+        
+
+
 
     }
 
@@ -44,6 +61,42 @@ public class BillionMovement : MonoBehaviour
         }
 
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag.Equals("Billion"))
+        {
+            if (collision.gameObject.GetComponent<BillionMovement>().color != color)
+            {
+                TakeDamage(25);
+            }
+        }
+    }
+
+    
+
+
+
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            float newSize = Mathf.Lerp(.2f, 1f, (float) health / (float) maxHealth);
+            Debug.Log(newSize);
+            HealthBar.transform.localScale = new Vector3(newSize, newSize, 1);
+
+        }
+    }
+
+
+
+
     private void updateCloseFlag() 
     {
         
@@ -77,11 +130,10 @@ public class BillionMovement : MonoBehaviour
             Vector3 newDirection = (currentFlag.transform.position - this.transform.position).normalized;
             float angle = Vector3.Angle(direction, newDirection);
             velocity = (180 - angle) * velocity / 180;
-
+    
         }
 
     }
-
 
     private void MoveToFlag()   
     {
