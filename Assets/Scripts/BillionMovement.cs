@@ -12,7 +12,7 @@ public class BillionMovement : MonoBehaviour
     //finding how to move
     [SerializeField] private GameObject flag1;
     [SerializeField] private GameObject flag2;
-    [SerializeField] private float acceleration;
+    [SerializeField] private float accelerationWhileInPlay;
     [SerializeField] private float stopMovingRange;
 
     private Vector3 goalPosition;
@@ -20,6 +20,7 @@ public class BillionMovement : MonoBehaviour
     private float totalDistance;
     private Vector3 direction = new Vector3(0,0,0);
     public float velocity = 0;
+    private float acceleration = 0;
 
 
     //health
@@ -28,8 +29,10 @@ public class BillionMovement : MonoBehaviour
     private int maxHealth = 100;
 
 
+
     void Start()
     {
+
 
         rb = gameObject.GetComponent<Rigidbody2D>();
         float flag1Distance = Vector3.Distance(flag1.transform.position, transform.position);
@@ -38,6 +41,7 @@ public class BillionMovement : MonoBehaviour
         goalPosition = currentFlag.transform.position;
         totalDistance = (flag1Distance < flag2Distance) ? flag1Distance : flag2Distance;
         velocity = 0;
+
 
 
         health = maxHealth;
@@ -60,6 +64,12 @@ public class BillionMovement : MonoBehaviour
             MoveToFlag();
         }
 
+    }
+
+    public void SetAcceleration()
+    {
+        Debug.Log("set");
+        acceleration = accelerationWhileInPlay;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

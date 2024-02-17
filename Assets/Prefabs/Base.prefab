@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4168708232266453781}
   - component: {fileID: 1737405908827925532}
   m_Layer: 0
-  m_Name: BaseBlue
+  m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

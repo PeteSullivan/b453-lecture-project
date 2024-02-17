@@ -28,7 +28,8 @@ public class Base : MonoBehaviour
                 float xNoise = Random.Range(-spawnRange, spawnRange);
                 float yNoise = Mathf.Sqrt(spawnRange * spawnRange - (xNoise * xNoise));
                 if (Random.Range(0, 1f) > 0.5f) { yNoise *= -1; }
-                Instantiate(billion, transform.position + new Vector3(xNoise, yNoise, 0), transform.rotation);
+                GameObject newBillion = Instantiate(billion, transform.position + new Vector3(xNoise, yNoise, 0), transform.rotation);
+                newBillion.GetComponent<BillionMovement>().SetAcceleration();
                 timer = 0;
             }
         }

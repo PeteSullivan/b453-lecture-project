@@ -14,13 +14,44 @@ public class Flags : MonoBehaviour
     private bool holding = false;
     private GameObject flagToBeMoved;
     private Vector3 startingPosition;
+    private int selectedColor = 0;
+
     private void Start()
     {
         lr = GetComponent<LineRenderer>();
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(color))
+        CheckSelectedColor();
+        if (selectedColor == color)
+        {
+            FlagMovement();
+        }
+    }
+
+    private void CheckSelectedColor()
+    {
+        if (Input.GetKeyDown("1"))
+        {
+            selectedColor = 1;
+        }
+        else if (Input.GetKeyDown("2"))
+        {
+            selectedColor = 2;
+        }
+        else if (Input.GetKeyDown("3"))
+        {
+            selectedColor = 3;
+        }
+        else if (Input.GetKeyDown("4"))
+        {
+            selectedColor = 4;
+        }
+    }
+
+    private void FlagMovement()
+    {
+                if (Input.GetMouseButtonDown(0))
         {
             clicks = clicks + 1;
             if (clicks == 1) //if first click, place first flag
@@ -42,7 +73,7 @@ public class Flags : MonoBehaviour
 
             }
         }
-        if (Input.GetMouseButtonUp(color)) //on release, stop moving flag
+        if (Input.GetMouseButtonUp(0)) //on release, stop moving flag
         {
             holding = false;
             lr.SetPosition(0, new Vector3(-10, -10, -10)); //moves line offscreen
@@ -61,7 +92,6 @@ public class Flags : MonoBehaviour
             lr.SetPosition(0, startingPosition);
             lr.SetPosition(1, Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
-
     }
 
     private void moveFlag(GameObject flag)

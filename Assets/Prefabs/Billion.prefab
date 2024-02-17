@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 3780926242630879999}
   - component: {fileID: -25092723988538947}
   m_Layer: 0
-  m_Name: BillionRed
+  m_Name: Billion
   m_TagString: Billion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,12 +248,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: 0
   spriteColors:
+  - {fileID: 21300000, guid: 2787fc243337bca438f96ce36d4050bc, type: 3}
   - {fileID: 21300000, guid: 8fd550a13829aa74285a34857491359e, type: 3}
   - {fileID: 21300000, guid: 27fad264463ed6d4aae71bcc02a2d413, type: 3}
   - {fileID: 21300000, guid: f287851679222da46bc1d4317a0467c8, type: 3}
   - {fileID: 21300000, guid: 5d6dec800391ce642bb357fe9a887c09, type: 3}
   flag1: {fileID: 0}
   flag2: {fileID: 0}
-  acceleration: 0
-  stopMovingRange: 0
+  accelerationWhileInPlay: 0
+  stopMovingRange: 0.1
   velocity: 0
