@@ -33,7 +33,7 @@ public class BillionMovement : MonoBehaviour
     void Start()
     {
 
-
+        //start flag movement
         rb = gameObject.GetComponent<Rigidbody2D>();
         float flag1Distance = Vector3.Distance(flag1.transform.position, transform.position);
         float flag2Distance = Vector3.Distance(flag2.transform.position, transform.position);
@@ -43,7 +43,7 @@ public class BillionMovement : MonoBehaviour
         velocity = 0;
 
 
-
+        //set health variables
         health = maxHealth;
         HealthBar = transform.GetChild(0);
         HealthBar.GetComponent<SpriteRenderer>().sprite = spriteColors[color];
@@ -68,6 +68,7 @@ public class BillionMovement : MonoBehaviour
 
     public void SetAcceleration()
     {
+        //original reference don't move
         Debug.Log("set");
         acceleration = accelerationWhileInPlay;
     }
@@ -78,6 +79,7 @@ public class BillionMovement : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<BillionMovement>().color != color)
             {
+                //if you hit an enemy billion, take 25 damage.
                 TakeDamage(25);
             }
         }
@@ -97,6 +99,7 @@ public class BillionMovement : MonoBehaviour
         }
         else
         {
+            //resize healthbar based on percentage of health left
             float newSize = Mathf.Lerp(.2f, 1f, (float) health / (float) maxHealth);
             Debug.Log(newSize);
             HealthBar.transform.localScale = new Vector3(newSize, newSize, 1);
@@ -109,7 +112,7 @@ public class BillionMovement : MonoBehaviour
 
     private void updateCloseFlag() 
     {
-        
+        //find closest flag
         float flag1Distance = Vector3.Distance(flag1.transform.position, transform.position);
         float flag2Distance = Vector3.Distance(flag2.transform.position, transform.position);
         float currentDistance = Vector3.Distance(currentFlag.transform.position, transform.position);

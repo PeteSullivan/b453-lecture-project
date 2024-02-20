@@ -24,12 +24,16 @@ public class Base : MonoBehaviour
             timer += Time.deltaTime;
             if (timer > spawnRate)
             {
-                
+                //spawn billions randomly around the base
                 float xNoise = Random.Range(-spawnRange, spawnRange);
                 float yNoise = Mathf.Sqrt(spawnRange * spawnRange - (xNoise * xNoise));
                 if (Random.Range(0, 1f) > 0.5f) { yNoise *= -1; }
+
+
                 GameObject newBillion = Instantiate(billion, transform.position + new Vector3(xNoise, yNoise, 0), transform.rotation);
-                newBillion.GetComponent<BillionMovement>().SetAcceleration();
+
+                //make new billion move based on goalAcceleration on billion prefab
+                newBillion.GetComponent<BillionMovement>().SetAcceleration(); 
                 timer = 0;
             }
         }

@@ -31,6 +31,11 @@ public class Flags : MonoBehaviour
 
     private void CheckSelectedColor()
     {
+        /*if 1 is pressed, move red
+         * if 2, move blue
+         * if 3, move green
+         * if 4, move yellow
+         */
         if (Input.GetKeyDown("1"))
         {
             selectedColor = 1;
@@ -51,7 +56,7 @@ public class Flags : MonoBehaviour
 
     private void FlagMovement()
     {
-                if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             clicks = clicks + 1;
             if (clicks == 1) //if first click, place first flag
