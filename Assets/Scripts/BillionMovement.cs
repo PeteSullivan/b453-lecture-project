@@ -14,6 +14,7 @@ public class BillionMovement : MonoBehaviour
     [SerializeField] private GameObject flag2;
     [SerializeField] private float accelerationWhileInPlay;
     [SerializeField] private float stopMovingRange;
+    [SerializeField] private float turretRotationSpeed;
 
     private Vector3 goalPosition;
     private GameObject currentFlag;
@@ -63,6 +64,44 @@ public class BillionMovement : MonoBehaviour
         {
             MoveToFlag();
         }
+        AimTurret();
+
+
+    }
+
+    private void AimTurret()
+    {
+        GameObject[] billions = GameObject.FindGameObjectsWithTag("Billion");
+        float closestDistance = 9999;
+        GameObject closestEnemy = null;
+        
+        foreach (GameObject billion in billions) //loop through all billions in scene
+        {
+            if (color != billion.GetComponent<BillionMovement>().color && !billion.transform.parent)
+            {
+               
+                float distance = Vector3.Distance(transform.position, billion.transform.position);
+                if (distance < closestDistance)
+                {
+                    //if billion is a different color, not a starting billion, AND is closest, set it as the closest
+                    closestDistance = Vector3.Distance(transform.position, billion.transform.position);
+                    closestEnemy = billion;
+                }
+                
+            }
+        }
+        if (closestEnemy)
+        {
+            //if there are billions, find the angle to face it and rotate towards that angle
+            float angle = Mathf.Atan2(closestEnemy.transform.position.y - transform.position.y, closestEnemy.transform.position.x - transform.position.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            transform.rotation = rotation;
+        }
+        else
+        {
+            //if there are no billions, spin around
+            transform.Rotate(new Vector3(0, 0, turretRotationSpeed * 2 * Time.deltaTime));
+        }
 
     }
 
@@ -85,11 +124,7 @@ public class BillionMovement : MonoBehaviour
         }
     }
 
-    
-
-
-
-
+   
     public void TakeDamage(int damage)
     {
         health -= damage;
