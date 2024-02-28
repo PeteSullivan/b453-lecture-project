@@ -342,5 +342,9 @@ MonoBehaviour:
   flag2: {fileID: 0}
   accelerationWhileInPlay: 0
   stopMovingRange: 0.1
+  bulletPrefab: {fileID: 2596123656426725421, guid: fcfdaea5cb5890f40a38b80eaeca2208, type: 3}
   turretRotationSpeed: 45
+  bulletSpeed: 10
+  firingSpeed: 3
+  range: 4
   velocity: 0

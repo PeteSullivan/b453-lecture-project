@@ -14,7 +14,18 @@ public class BillionMovement : MonoBehaviour
     [SerializeField] private GameObject flag2;
     [SerializeField] private float accelerationWhileInPlay;
     [SerializeField] private float stopMovingRange;
+
+    //turret/bullet stuff
+    [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float turretRotationSpeed;
+    [SerializeField] private float bulletSpeed;
+    [SerializeField] private float firingSpeed;
+    [SerializeField] private float range;
+    private bool isAiming = false;
+    private bool inRange = false;
+    private float angle = 0f;
+    private float shootTimer = 0f;
+    
 
     private Vector3 goalPosition;
     private GameObject currentFlag;
@@ -65,8 +76,27 @@ public class BillionMovement : MonoBehaviour
             MoveToFlag();
         }
         AimTurret();
+        Shoot();
 
 
+    }
+
+    private void Shoot()
+    {
+        //only shoots if there's a billion in range, it is aiming at it, and it's off cooldown.
+        shootTimer += Time.deltaTime;
+        if (isAiming && inRange && shootTimer > firingSpeed)
+        {
+            shootTimer = 0;
+
+            //instantiate new bullet and place it in front of the turret's current aiming angle
+            GameObject newBullet = Instantiate(bulletPrefab);
+            newBullet.transform.position = transform.position;
+            newBullet.transform.position += new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle), 0) * 0.3f;
+
+            //set bullet's stats
+            newBullet.GetComponent<Bullet>().setStats(angle, bulletSpeed, color);
+        }
     }
 
     private void AimTurret()
@@ -93,22 +123,26 @@ public class BillionMovement : MonoBehaviour
         if (closestEnemy)
         {
             //if there are billions, find the angle to face it and rotate towards that angle
-            float angle = Mathf.Atan2(closestEnemy.transform.position.y - transform.position.y, closestEnemy.transform.position.x - transform.position.x) * Mathf.Rad2Deg;
+            angle = Mathf.Atan2(closestEnemy.transform.position.y - transform.position.y, closestEnemy.transform.position.x - transform.position.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle));
             transform.rotation = rotation;
+            isAiming = true;
+            inRange = (closestDistance < range) ? true : false;
+            
+
         }
         else
         {
             //if there are no billions, spin around
             transform.Rotate(new Vector3(0, 0, turretRotationSpeed * 2 * Time.deltaTime));
+            isAiming = false;
         }
 
     }
 
     public void SetAcceleration()
     {
-        //original reference don't move
-        Debug.Log("set");
+        //original references don't move
         acceleration = accelerationWhileInPlay;
     }
 
