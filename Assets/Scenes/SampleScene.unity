@@ -859,12 +859,16 @@ PrefabInstance:
       value: BaseRed
       objectReference: {fileID: 0}
     - target: {fileID: 5099863102183588429, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
+      propertyPath: color
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5099863102183588429, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
       propertyPath: billion
       value: 
       objectReference: {fileID: 1778591420}
     - target: {fileID: 5099863102183588429, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
       propertyPath: spawnRate
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5966587810526146075, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1582,12 +1586,16 @@ PrefabInstance:
       value: BaseGreen
       objectReference: {fileID: 0}
     - target: {fileID: 5099863102183588429, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
+      propertyPath: color
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5099863102183588429, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
       propertyPath: billion
       value: 
       objectReference: {fileID: 1619089089}
     - target: {fileID: 5099863102183588429, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
       propertyPath: spawnRate
-      value: 100
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5966587810526146075, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1756,12 +1764,16 @@ PrefabInstance:
       value: BaseYellow
       objectReference: {fileID: 0}
     - target: {fileID: 5099863102183588429, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
+      propertyPath: color
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5099863102183588429, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
       propertyPath: billion
       value: 
       objectReference: {fileID: 1583458708}
     - target: {fileID: 5099863102183588429, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
       propertyPath: spawnRate
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5966587810526146075, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2383,12 +2395,16 @@ PrefabInstance:
       value: BaseBlue
       objectReference: {fileID: 0}
     - target: {fileID: 5099863102183588429, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
+      propertyPath: color
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5099863102183588429, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
       propertyPath: billion
       value: 
       objectReference: {fileID: 2005148407}
     - target: {fileID: 5099863102183588429, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
       propertyPath: spawnRate
-      value: 100
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5966587810526146075, guid: ea5f7facb29a784409ad7f2a79440947, type: 3}
       propertyPath: m_LocalPosition.x

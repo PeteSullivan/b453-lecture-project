@@ -4,16 +4,33 @@ using UnityEngine;
 
 public class Base : MonoBehaviour
 {
+    //spawning billions
     [SerializeField] private GameObject billion;
     [SerializeField] private bool spawning = true;
     [SerializeField] private float spawnRate = 1;
     [SerializeField] private float spawnRange = .1f;
-    [SerializeField] private float timer = 0;
+    [SerializeField] private float spawnTimer = 0;
+
+    //turret
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] public int color;
+    [SerializeField] private float turretRotationSpeed;
+    [SerializeField] private float bulletSpeed;
+    [SerializeField] private float firingSpeed;
+    [SerializeField] private float range;
+    private bool isAiming = false;
+    private bool inRange = false;
+    private float angle = 0f;
+    private float shootTimer = 0f;
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        timer = 0;
+        spawnTimer = 0;
     }
 
     // Update is called once per frame
@@ -21,8 +38,8 @@ public class Base : MonoBehaviour
     {
         if (spawning)
         {
-            timer += Time.deltaTime;
-            if (timer > spawnRate)
+            spawnTimer += Time.deltaTime;
+            if (spawnTimer > spawnRate)
             {
                 //spawn billions randomly around the base
                 float xNoise = Random.Range(-spawnRange, spawnRange);
@@ -33,9 +50,83 @@ public class Base : MonoBehaviour
                 GameObject newBillion = Instantiate(billion, transform.position + new Vector3(xNoise, yNoise, 0), transform.rotation);
 
                 //make new billion move based on goalAcceleration on billion prefab
-                newBillion.GetComponent<BillionMovement>().SetAcceleration(); 
-                timer = 0;
+                newBillion.GetComponent<BillionMovement>().SetAcceleration();
+                spawnTimer = 0;
             }
         }
+        AimTurret();
+        Shoot();
     }
+
+
+    private void Shoot()
+    {
+        //only shoots if there's a billion in range, it is aiming at it, and it's off cooldown.
+        shootTimer += Time.deltaTime;
+        if (isAiming && inRange && shootTimer > firingSpeed)
+        {
+            shootTimer = 0;
+
+            //instantiate new bullet and place it in front of the turret's current aiming angle
+            GameObject newBullet = Instantiate(bulletPrefab);
+            newBullet.transform.position = transform.position;
+            newBullet.transform.position += new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle), 0) * 1.2f;
+
+            //set bullet's stats
+            newBullet.GetComponent<Bullet>().setStats(angle, bulletSpeed, color, 75, 10, 2.5f);
+        }
+    }
+    private void AimTurret()
+    {
+        GameObject[] billions = GameObject.FindGameObjectsWithTag("Billion");
+        float closestDistance = 9999;
+        GameObject closestEnemy = null;
+
+        foreach (GameObject billion in billions) //loop through all billions in scene
+        {
+            if (color != billion.GetComponent<BillionMovement>().color && !billion.transform.parent)
+            {
+
+                float distance = Vector3.Distance(transform.position, billion.transform.position);
+                if (distance < closestDistance)
+                {
+                    //if billion is a different color, not a starting billion, AND is closest, set it as the closest
+                    closestDistance = Vector3.Distance(transform.position, billion.transform.position);
+                    closestEnemy = billion;
+                }
+
+            }
+        }
+
+        if (closestEnemy)
+        {
+            // Calculate the angle between current forward direction and direction to the target
+            Vector3 direction = (closestEnemy.transform.position - transform.position).normalized;
+            float goalAngle = Vector3.SignedAngle(transform.up, direction, Vector3.forward) * Mathf.Rad2Deg;
+            angle = transform.rotation.eulerAngles.z + 90;
+
+            // Rotate towards the target direction at a fixed speed
+            if (goalAngle > 0)
+            {
+                transform.Rotate(Vector3.forward, Mathf.Min(goalAngle, turretRotationSpeed * Time.deltaTime));
+            }
+            else
+            {
+                transform.Rotate(Vector3.forward, Mathf.Max(goalAngle, -turretRotationSpeed * Time.deltaTime));
+            }
+
+            isAiming = true;
+            inRange = (closestDistance < range) ? true : false; //check if in range
+
+        }
+        else
+        {
+            //if there are no billions, spin around in circles
+            transform.Rotate(new Vector3(0, 0, turretRotationSpeed * Time.deltaTime));
+            isAiming = false;
+        }
+
+    }
+
+
 }

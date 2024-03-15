@@ -95,7 +95,7 @@ public class BillionMovement : MonoBehaviour
             newBullet.transform.position += new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle), 0) * 0.3f;
 
             //set bullet's stats
-            newBullet.GetComponent<Bullet>().setStats(angle, bulletSpeed, color);
+            newBullet.GetComponent<Bullet>().setStats(angle, bulletSpeed, color, 25, 4, 1);
         }
     }
 

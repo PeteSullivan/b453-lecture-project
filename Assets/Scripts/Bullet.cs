@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     private int color = 1;
     private float lifespan = 8f;
     private float lifetime = 0;
+    private int damage = 0;
 
 
     // Update is called once per frame
@@ -25,11 +26,14 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void setStats(float angle, float speed, int color)
+    public void setStats(float angle, float speed, int color, int damage, float lifespan, float size)
     {
         direction = new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle), 0); //calculate direction to move in
         this.speed = speed;
         this.color = color;
+        this.damage = damage;
+        this.lifespan = lifespan;
+        transform.localScale = transform.localScale * size;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle)); //rotate bullet to face target
 
 
@@ -58,7 +62,7 @@ public class Bullet : MonoBehaviour
             if (collision.gameObject.GetComponent<BillionMovement>().color != color)
             {
                 //if you hit an enemy billion, it takes 25 damage.
-                collision.gameObject.GetComponent<BillionMovement>().TakeDamage(25);
+                collision.gameObject.GetComponent<BillionMovement>().TakeDamage(damage);
             }
         }
         Destroy(this.gameObject); //despawn on collision regardless of what it hits
