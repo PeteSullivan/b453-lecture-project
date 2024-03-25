@@ -12,6 +12,8 @@ public class Bullet : MonoBehaviour
     private float lifetime = 0;
     private int damage = 0;
 
+    private GameObject homeBase;
+
 
     // Update is called once per frame
     void Update()
@@ -26,13 +28,14 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void setStats(float angle, float speed, int color, int damage, float lifespan, float size)
+    public void setStats(float angle, float speed, int color, int damage, float lifespan, float size, GameObject homeBase)
     {
         direction = new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle), 0); //calculate direction to move in
         this.speed = speed;
         this.color = color;
         this.damage = damage;
         this.lifespan = lifespan;
+        this.homeBase = homeBase;
         transform.localScale = transform.localScale * size;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle)); //rotate bullet to face target
 
@@ -62,10 +65,25 @@ public class Bullet : MonoBehaviour
             if (collision.gameObject.GetComponent<BillionMovement>().color != color)
             {
                 //if you hit an enemy billion, it takes 25 damage.
-                collision.gameObject.GetComponent<BillionMovement>().TakeDamage(damage);
+                collision.gameObject.GetComponent<BillionMovement>().TakeDamage(damage, homeBase);
+                Destroy(this.gameObject);
             }
         }
-        Destroy(this.gameObject); //despawn on collision regardless of what it hits
+        else if (collision.transform.tag.Equals("Base"))
+        {
+            if (collision.gameObject.GetComponent<Base>().color != color)
+            {
+                //if you hit an enemy billion, it takes 25 damage.
+                collision.gameObject.GetComponent<Base>().TakeDamage(damage, homeBase);
+                Destroy(this.gameObject);
+            }
+        }
+        else
+        {
+            Destroy(this.gameObject); //bullet is not destroyed if it hits its own color, but is in other cases.
+        }
+
+         //despawn on collision regardless of what it hits
         
     }
 }

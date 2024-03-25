@@ -23,6 +23,13 @@ public class Base : MonoBehaviour
     private float angle = 0f;
     private float shootTimer = 0f;
 
+    [SerializeField] private GameObject healthbar;
+    [SerializeField] private GameObject XPbar;
+    private int health = 250;
+    private int maxHealth = 250;
+    private int xp = 0;
+    private int maxXP = 100;
+    private int rank = 0;
 
 
 
@@ -31,6 +38,9 @@ public class Base : MonoBehaviour
     void Start()
     {
         spawnTimer = 0;
+        healthbar.GetComponent<SpriteRenderer>().sharedMaterial.SetFloat("_Arc1", 0); //start with full health
+        XPbar.GetComponent<SpriteRenderer>().sharedMaterial.SetFloat("_Arc1", 360); //start with no XP
+
     }
 
     // Update is called once per frame
@@ -73,7 +83,7 @@ public class Base : MonoBehaviour
             newBullet.transform.position += new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle), 0) * 1.2f;
 
             //set bullet's stats
-            newBullet.GetComponent<Bullet>().setStats(angle, bulletSpeed, color, 75, 10, 2.5f);
+            newBullet.GetComponent<Bullet>().setStats(angle, bulletSpeed, color, 75, 10, 2.5f, this.gameObject);
         }
     }
     private void AimTurret()
@@ -113,6 +123,7 @@ public class Base : MonoBehaviour
             else
             {
                 transform.Rotate(Vector3.forward, Mathf.Max(goalAngle, -turretRotationSpeed * Time.deltaTime));
+
             }
 
             isAiming = true;
@@ -125,8 +136,46 @@ public class Base : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, turretRotationSpeed * Time.deltaTime));
             isAiming = false;
         }
+        
+        healthbar.transform.rotation = new Quaternion(0, 0, 0, transform.rotation.w);
 
     }
+    public void TakeDamage(int damage, GameObject enemyBase)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            enemyBase.GetComponent<Base>().GetXP(50);
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            //Debug.Log("Health: " + health);
 
+            //set healthbar size
+            float arcSize = health * 360 / maxHealth;
+            healthbar.GetComponent<SpriteRenderer>().sharedMaterial.SetFloat("_Arc1", 360 - arcSize);
+
+
+
+        }
+    }
+
+    public void GetXP(int newXP)
+    {
+
+        xp += newXP;
+        if (xp > maxXP) //rank up if enough XP
+        {
+            xp -= maxXP;
+            rank++;
+            Debug.Log("rank up! rank: " + rank);
+        }
+        //set XP bar size
+
+        float arcSize = xp * 360 / maxXP;
+        XPbar.GetComponent<SpriteRenderer>().sharedMaterial.SetFloat("_Arc1", 360 - arcSize);
+
+    }
 
 }

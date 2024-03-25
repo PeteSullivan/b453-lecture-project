@@ -5,9 +5,11 @@ using UnityEngine.AI;
 
 public class BillionMovement : MonoBehaviour
 {
+    //references
     private Rigidbody2D rb;
     [SerializeField] public int color;
     [SerializeField] private Sprite[] spriteColors;
+    [SerializeField] private GameObject homeBase;
 
     //finding how to move
     [SerializeField] private GameObject flag1;
@@ -27,6 +29,7 @@ public class BillionMovement : MonoBehaviour
     private float shootTimer = 0f;
     
 
+    //movement
     private Vector3 goalPosition;
     private GameObject currentFlag;
     private float totalDistance;
@@ -59,9 +62,16 @@ public class BillionMovement : MonoBehaviour
         health = maxHealth;
         HealthBar = transform.GetChild(0);
         HealthBar.GetComponent<SpriteRenderer>().sprite = spriteColors[color];
-                    
-        
 
+
+        foreach (GameObject billionBase in GameObject.FindGameObjectsWithTag("Base"))
+        {
+            if (color == billionBase.GetComponent<Base>().color)
+            {
+                homeBase = billionBase;
+                break;
+            }
+        }
 
 
     }
@@ -95,7 +105,7 @@ public class BillionMovement : MonoBehaviour
             newBullet.transform.position += new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle), 0) * 0.3f;
 
             //set bullet's stats
-            newBullet.GetComponent<Bullet>().setStats(angle, bulletSpeed, color, 25, 4, 1);
+            newBullet.GetComponent<Bullet>().setStats(angle, bulletSpeed, color, 25, 4, 1, homeBase);
         }
     }
 
@@ -120,6 +130,25 @@ public class BillionMovement : MonoBehaviour
                 
             }
         }
+
+        GameObject[] bases = GameObject.FindGameObjectsWithTag("Base");
+        foreach (GameObject billionBase in bases) 
+        {
+            if (color != billionBase.GetComponent<Base>().color)
+            {
+
+                float distance = Vector3.Distance(transform.position, billionBase.transform.position);
+                if (distance < closestDistance)
+                {
+
+                    //if billion is a different color, not a starting billion, AND is closest, set it as the closest
+                    closestDistance = Vector3.Distance(transform.position, billionBase.transform.position);
+                    closestEnemy = billionBase;
+                }
+            }
+        }
+
+
         if (closestEnemy)
         {
             //if there are billions, find the angle to face it and rotate towards that angle
@@ -145,7 +174,7 @@ public class BillionMovement : MonoBehaviour
         //original references don't move
         acceleration = accelerationWhileInPlay;
     }
-
+    /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.tag.Equals("Billion"))
@@ -157,23 +186,27 @@ public class BillionMovement : MonoBehaviour
             }
         }
     }
+    */
 
    
-    public void TakeDamage(int damage)
+    public bool TakeDamage(int damage, GameObject enemyBase)
     {
         health -= damage;
         if (health <= 0)
         {
+            if (enemyBase)
+                enemyBase.GetComponent<Base>().GetXP(25);
             Destroy(this.gameObject);
         }
         else
         {
             //resize healthbar based on percentage of health left
             float newSize = Mathf.Lerp(.2f, 1f, (float) health / (float) maxHealth);
-            Debug.Log(newSize);
+            //Debug.Log(newSize);
             HealthBar.transform.localScale = new Vector3(newSize, newSize, 1);
-
+            return false;
         }
+        return true;
     }
 
 

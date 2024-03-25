@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Billion
   - Starting Billions
+  - Base
   layers:
   - Default
   - TransparentFX
