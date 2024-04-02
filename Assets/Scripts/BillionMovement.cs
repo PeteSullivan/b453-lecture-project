@@ -42,6 +42,9 @@ public class BillionMovement : MonoBehaviour
     private Transform HealthBar;
     private int health;
     private int maxHealth = 100;
+    private int damage = 25;
+
+
 
 
 
@@ -105,7 +108,7 @@ public class BillionMovement : MonoBehaviour
             newBullet.transform.position += new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle), 0) * 0.3f;
 
             //set bullet's stats
-            newBullet.GetComponent<Bullet>().setStats(angle, bulletSpeed, color, 25, 4, 1, homeBase);
+            newBullet.GetComponent<Bullet>().setStats(angle, bulletSpeed, color, damage, 4, 1, homeBase);
         }
     }
 
@@ -169,26 +172,22 @@ public class BillionMovement : MonoBehaviour
 
     }
 
-    public void SetAcceleration()
+    public void SetRank(int rank)
     {
-        //original references don't move
+        //keep reference billions offscreen
         acceleration = accelerationWhileInPlay;
-    }
-    /*
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.transform.tag.Equals("Billion"))
-        {
-            if (collision.gameObject.GetComponent<BillionMovement>().color != color)
-            {
-                //if you hit an enemy billion, take 25 damage.
-                TakeDamage(25);
-            }
-        }
-    }
-    */
 
-   
+        //Debug.Log("new billion rank: " + rank);
+
+        //scale health, damage, and size based on rank
+        maxHealth = maxHealth * (rank / 2 + 1);
+        damage = damage * (rank / 2 + 1);
+        transform.localScale += new Vector3((float)rank / 10, (float) rank / 10, (float) rank / 10);
+
+    }
+
+
+
     public bool TakeDamage(int damage, GameObject enemyBase)
     {
         health -= damage;

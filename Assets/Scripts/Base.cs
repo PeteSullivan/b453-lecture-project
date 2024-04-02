@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Base : MonoBehaviour
 {
@@ -25,11 +26,12 @@ public class Base : MonoBehaviour
 
     [SerializeField] private GameObject healthbar;
     [SerializeField] private GameObject XPbar;
+    [SerializeField] private TextMeshPro rankDisplay;
     private int health = 250;
     private int maxHealth = 250;
     private int xp = 0;
     private int maxXP = 100;
-    private int rank = 0;
+    private int rank = 1;
 
 
 
@@ -60,7 +62,7 @@ public class Base : MonoBehaviour
                 GameObject newBillion = Instantiate(billion, transform.position + new Vector3(xNoise, yNoise, 0), transform.rotation);
 
                 //make new billion move based on goalAcceleration on billion prefab
-                newBillion.GetComponent<BillionMovement>().SetAcceleration();
+                newBillion.GetComponent<BillionMovement>().SetRank(rank);
                 spawnTimer = 0;
             }
         }
@@ -169,7 +171,10 @@ public class Base : MonoBehaviour
         {
             xp -= maxXP;
             rank++;
+            maxXP = (int) (maxXP * 1.5f);
+            rankDisplay.text = rank.ToString();
             Debug.Log("rank up! rank: " + rank);
+            Debug.Log("new rank cost: " + maxXP);
         }
         //set XP bar size
 
