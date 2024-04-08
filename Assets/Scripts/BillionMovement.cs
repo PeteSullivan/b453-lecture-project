@@ -36,6 +36,7 @@ public class BillionMovement : MonoBehaviour
     private Vector3 direction = new Vector3(0,0,0);
     public float velocity = 0;
     private float acceleration = 0;
+    [SerializeField] private float maxVelocity;
 
 
     //health
@@ -264,6 +265,10 @@ public class BillionMovement : MonoBehaviour
         else
         {
             velocity += acceleration * Time.deltaTime;
+            if (velocity > maxVelocity)
+            {
+                velocity = maxVelocity;
+            }
             transform.position += direction * velocity * Time.deltaTime;
 
             //transform.position = closerFlag.transform.position;
